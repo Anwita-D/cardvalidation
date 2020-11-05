@@ -6,14 +6,15 @@ use InvalidArgumentException;
 
 /**
  * Class LuhnNumber
+ *
  * @package Anwita
  */
 class LuhnNumber
 {
 
     /**
-     * @param int $digit
-     * @param bool $flag
+     * @param  int  $digit
+     * @param  bool $flag
      * @return int
      */
     protected static function doubleDigit(int $digit, bool &$flag)
@@ -32,8 +33,8 @@ class LuhnNumber
     }
 
     /**
-     * @param string $prefix
-     * @param int $length
+     * @param  string $prefix
+     * @param  int    $length
      * @return string
      */
     public static function generate(string $prefix, int $length) : string
@@ -59,7 +60,7 @@ class LuhnNumber
     }
 
     /**
-     * @param string $number
+     * @param  string $number
      * @return bool
      */
     public static function validate(string $number) : bool

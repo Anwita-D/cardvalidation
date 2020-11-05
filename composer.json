@@ -3,7 +3,8 @@
     "description": "App for card validation",
     "require-dev": {
         "phpunit/phpunit": "^9.4",
-        "friendsofphp/php-cs-fixer": "^2.16"
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "squizlabs/php_codesniffer": "^3.5"
     },
     "license": "MIT",
     "authors": [
