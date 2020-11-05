@@ -1,0 +1,41 @@
+language: php
+
+dist: xenial
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+php:
+  - 7.4
+
+before_install:
+
+  - |
+    if [[ $TRAVIS_PHP_VERSION == '7.4' ]]; then
+      pecl channel-update pecl.php.net
+      pecl install pcov
+    fi
+  - sudo locale-gen en_GB.UTF-8
+
+install:
+  - |
+    if [[ $PREFER_LOWEST == 1 ]]; then
+      composer update --prefer-lowest --prefer-stable --no-interaction
+    elif [[ $TRAVIS_PHP_VERSION == 'nightly' ]]; then
+      composer install --no-interaction --ignore-platform-reqs
+    else
+      composer install --no-interaction
+    fi
+script:
+  - |
+    if [[ $TRAVIS_PHP_VERSION == '7.4' ]]; then
+      export CODECOVERAGE=1 && vendor/bin/phpunit --verbose --coverage-clover=clover.xml
+    else
+      vendor/bin/phpunit
+    fi
+after_success:
+  - if [[ $TRAVIS_PHP_VERSION == '7.4' ]]; then bash <(curl -s https://codecov.io/bash); fi
+
+notifications:
+  email: false
