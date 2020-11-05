@@ -1,6 +1,5 @@
 <?php
 declare(strict_types=1);
-namespace Tests\TestCase;
 namespace Anwita\Test;
 use Anwita\CreateNumber;
 use PHPUnit\Framework\TestCase;
@@ -13,7 +12,7 @@ class CreateNumberTest extends TestCase
 {
     public function testNumber()
     {
-        $this->assertEquals(0, CreateNumber::checkNumber((string)7290223027031279));
-
+        $this->assertTrue(CreateNumber::validate("7290223027031279"));
+       // $this->assertFalse(CreateNumber::validate("7290223027031278"));
     }
 }
