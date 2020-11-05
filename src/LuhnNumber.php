@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 namespace Anwita;
+
 use InvalidArgumentException;
 
 /**
@@ -35,7 +36,7 @@ class LuhnNumber
      * @param int $length
      * @return string
      */
-    public static function generate(string $prefix, int $length ) : string
+    public static function generate(string $prefix, int $length) : string
     {
         $prefixLength = strlen($prefix);
         if ($length <= $prefixLength) {
@@ -75,5 +76,4 @@ class LuhnNumber
         $computedCheckDigit = (10-($sumOfNumbers%10))%10;
         return (int)$checkDigit === $computedCheckDigit;
     }
-
 }
