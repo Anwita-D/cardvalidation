@@ -10,43 +10,52 @@ use InvalidArgumentException;
 class CreateNumber
 {
     /**
-     * @param int $prefix
-     * @param int $length
+     * @param string $prefix
+     * @param string $length
      * @return string
      */
-    public static function numberCreate(int $prefix, int $length ) : string
+    public static function numberCreate(string $prefix, string $length ) : string
     {
-        if ($length >= $prefix) {
+        if ($length >= strlen($prefix)) {
             throw new InvalidArgumentException("Length and prefix cannot equal");
         }
         $result = '';
-        $new_length = $length - strlen($prefix);
-        for ($i =0 ; $i <= count($new_length); $i++) {
+        $new_length = $length - strlen((string)$prefix);
+        for ($i =0 ; $i <= $new_length; $i++) {
             $result .= mt_rand(0, 9);
         }
-        $result = CreateNumber::checkNumber($prefix.$result);
+        $result = $prefix.$result;
         if($result == 0) {
-            return $prefix . $result;
+            return $result;
         }
         throw new InvalidArgumentException("Number is not correct");
     }
 
     /**
      * @param string $number
-     * @return int
+     * @return bool
      */
-    public static function checkNumber(string $number) : int
+    public static function validate(string $number) : bool
     {
-        $sum = '';
-        for ($i = strlen($number) -1; $i >= 0; --$i) {
-            $chk_number = $i %2 !== 0 ? $number[$i]*2 : $number[$i];
-            if($chk_number>9){
-                $sum += array_sum(str_split($number));
-            }else{
-                $sum += $number[$i] ;
+        $numberArray = str_split($number);
+        $checkDigit = array_pop($numberArray);
+        $arrayLength = count($numberArray);
+        $doubleDigit = true;
+        $sumOfNumbers = 0;
+        for ($i = $arrayLength-1; $i >=0; $i--) {
+            if ($doubleDigit) {
+                $doubleOfNumber = $numberArray[$i]*2;
+                if ($doubleOfNumber > 9) {
+                    $doubleOfNumber = $doubleOfNumber-9;
+                }
+                $sumOfNumbers += $doubleOfNumber;
+                $doubleDigit = false;
+            } else {
+                $sumOfNumbers += $numberArray[$i]*1;
+                $doubleDigit = true;
             }
         }
-        return $sum %10;
+        return (int)$checkDigit === (10-($sumOfNumbers%10));
     }
 
 }
