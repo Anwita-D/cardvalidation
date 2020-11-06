@@ -30,7 +30,7 @@ install:
 script:
   - |
     if [[ $TRAVIS_PHP_VERSION == '7.4' ]]; then
-      export CODECOVERAGE=1 && vendor/bin/phpunit --testsuite app --verbose --coverage-clover=clover.xml
+      export CODECOVERAGE=1 && vendor/bin/phpunit --verbose --coverage-clover=clover.xml
     else
       vendor/bin/phpunit
     fi
