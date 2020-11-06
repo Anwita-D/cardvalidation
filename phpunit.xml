@@ -12,7 +12,7 @@
     <!-- Add any additional test suites you want to run here -->
     <testsuites>
         <testsuite name="app">
-            <directory>Tests/TestCase/</directory>
+            <directory>tests/TestCase/</directory>
         </testsuite>
     </testsuites>
 </phpunit>
