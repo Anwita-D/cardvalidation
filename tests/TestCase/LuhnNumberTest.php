@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace Anwita\Test;
 use Anwita\LuhnNumber;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -21,9 +22,15 @@ class LuhnNumberTest extends TestCase
     public function testGenerate()
     {
         $cardNumber = LuhnNumber::generate("786", 16);
-        print $cardNumber;
         $this->assertEquals(16, strlen($cardNumber));
         $this->assertStringStartsWith("786", $cardNumber);
         $this->assertTrue(LuhnNumber::validate($cardNumber));
     }
+
+    public function testGenerateException()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        LuhnNumber::generate("9876", 4);
+    }
+
 }
